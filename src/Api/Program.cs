@@ -53,8 +53,6 @@ builder.Services
     // Added to ensure API version is checked (else, it's weirdly hit or miss):
     .AddMvc();
 
-builder.Services.AddScoped<ObfuscatePayloadOfServerErrors>();
-
 TraceGuid.RegisterTo(builder);
 
 RequestTimeouts.Add(builder);
@@ -109,7 +107,6 @@ try
 {
     app.Use(TraceGuid.Middleware);
     app.UseSerilogRequestLogging();
-    app.UseMiddleware<ObfuscatePayloadOfServerErrors>();
 
     if (app.Environment.IsDevelopment())
     {

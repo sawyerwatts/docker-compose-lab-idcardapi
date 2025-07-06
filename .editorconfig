@@ -40,6 +40,9 @@ dotnet_diagnostic.CA1062.severity = none
 # Avoid uninstantiated internal classes
 dotnet_diagnostic.CA1812.severity = suggestion
 
+# Catch more specific exceptions than Exception or rethrow.
+dotnet_diagnostic.CA1031.severity = suggestion
+
 # Nested types should not be visible
 dotnet_diagnostic.CA1034.severity = none
 
@@ -59,7 +62,6 @@ dotnet_diagnostic.CA2227.severity = suggestion
 
 # Non-blittable types should override Equals, ==, and !=
 dotnet_diagnostic.CA1815.severity = none
-
 
 #### .NET Coding Conventions ####
 [*.{cs,vb}]

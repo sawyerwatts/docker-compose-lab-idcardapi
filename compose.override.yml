@@ -1,0 +1,20 @@
+services:
+
+  idcardapi_eligdb:
+    ports:
+      - "127.0.0.1:5432:5432"
+
+  idcardapi_plandb:
+    ports:
+      - "127.0.0.1:1433:1433"
+
+  idcardapi_redis:
+    ports:
+      - "127.0.0.1:6379:6379"
+
+  idcardapi_azurite:
+    ports:
+      # Azure Storage Explorer doesn't play nice with ipv6, so localhost/127.0.0.1 seemingly must be used.
+      - "127.0.0.1:10000:10000"
+      - "127.0.0.1:10001:10001"
+      - "127.0.0.1:10002:10002"
