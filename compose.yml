@@ -124,9 +124,12 @@ services:
     # TODO: healthcheck
 
   # TODO: add svc for the .net api itself, w/ dependencies on all the other crap and a healthcheck
+  #   condition: service_completed_successfully
+  #   restart: true
   #   also figure out how to do dockerized development, and if that'll impact the dockerfile
   #   https://www.jetbrains.com/guide/dotnet/tutorials/docker-dotnet/local-dotnet-development-docker/
   #   https://docs.docker.com/compose/how-tos/file-watch/
+  #   https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-9.0#docker-healthcheck
 
 volumes:
   idcardapi_eligdb_data:
