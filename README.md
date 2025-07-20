@@ -46,29 +46,33 @@ Here's a helpful lil command to clean up many images within a tag (I think this 
 sdocker image rm $(sdocker image ls | grep "^id-card-api" | awk -F' ' '{print $1 ":" $2}')
 ```
 
+Start the service `docker compose up --build idcardapi_api -d`
+
 ## Debugging
+
+### Rootless
 
 [Great Rider article](https://blog.jetbrains.com/dotnet/2023/08/16/debugging-docker-and-docker-compose-solutions-with-jetbrains-rider/)
 
 To debug in Rider on Linux, either you need to run Rider as admin or setup Docker to run as rootless.
 
-TODO: have a dependencies "service" to allow for easy starting of dependencies w/o the image itself?
-
-TODO: have an easy way to access the api from host machine; export port?
-
-TODO: make a `.dockerignore` for .NET build artifacts (go steal Rider's)
-
-TODO: how speed up startup?
-
-TODO: add apikey auth back in
-
-TODO: take a pass at existing READMEs
-
 1. Install rootless docker
 2. If `docker compose up -d` fails during pulling due to `docker-credential-desktop` being missing,
    `vi ~/.docker/config.json` and change `credsStore` to `credStore`
 3. Configure Rider's Docker settings to use the rootless docker socket
-4. Start the service `docker compose up --build idcardapi_api -d`
-4. TODO: this container, when ran by Rider, isn't on same network as docker compose, so can't find ports
-   - how add everything to an external network?
-5. TODO: now how debug?
+4. If Rider doesn't have a run config for the API's compose service, create that
+5. Run the API's compose service in Debug mode
+    - WARNING: Rider doesn't apply `compose.override.yml`!! It will at least make sure the API's
+      port is exposed, but the other services won't be available on the host machine, and since
+      Rider runs on the host, the DBs won't be accessible. As such, it can be helpful to here to
+      make a service that contains the dependencies for the API, start that service normally, and
+      then have Rider start the API itself
+
+### TODOs
+
+- try out making a dependency service to start normally
+- how speed up startup, and/or to autobuild the code on changes?
+    - [have a dotnet run watch branch in the dockerfile?](https://learn.microsoft.com/en-us/aspnet/core/tutorials/dotnet-watch?view=aspnetcore-9.0#run-net-cli-commands-using-dotnet-watch)
+    - make a `.dockerignore` for .NET build artifacts (go steal Rider's)
+- take a pass at existing READMEs
+    - put env var overrides into `launchSettings.json` so can code/debug normally
