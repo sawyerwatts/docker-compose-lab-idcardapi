@@ -45,3 +45,19 @@ Here's a helpful lil command to clean up many images within a tag (I think this 
 ```shell
 sdocker image rm $(sdocker image ls | grep "^id-card-api" | awk -F' ' '{print $1 ":" $2}')
 ```
+
+## Debugging
+
+[Great Rider article](https://blog.jetbrains.com/dotnet/2023/08/16/debugging-docker-and-docker-compose-solutions-with-jetbrains-rider/)
+
+To debug in Rider on Linux, either you need to run Rider as admin or setup Docker to run as rootless.
+
+TODO: how speed up startup?
+
+1. Install rootless docker
+2. If `docker compose up -d` fails during pulling due to `docker-credential-desktop` being missing,
+   `vi ~/.docker/config.json` and change `credsStore` to `credStore`
+3. Configure Rider's Docker settings to use the rootless docker socket
+4. Configure Rider's run config for the `src/Api/Dockerfile` to bind the port: `127.0.0.1:8080:8080`
+5. TODO: this container, when ran by Rider, isn't on same network as docker compose, so can't find ports
+6. TODO: now how debug?

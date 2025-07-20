@@ -3,10 +3,10 @@ using System.Globalization;
 
 using Asp.Versioning;
 
+using IdCardApi.Middleware;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-using IdCardApi.Middleware;
 
 namespace IdCardApi;
 

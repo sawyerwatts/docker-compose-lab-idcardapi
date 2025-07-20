@@ -2,13 +2,13 @@ using System.Reflection;
 
 using HealthChecks.UI.Client;
 
+using IdCardApi.HealthChecks;
+using IdCardApi.Middleware;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.OpenApi.Models;
-
-using IdCardApi.HealthChecks;
-using IdCardApi.Middleware;
 
 using Serilog;
 

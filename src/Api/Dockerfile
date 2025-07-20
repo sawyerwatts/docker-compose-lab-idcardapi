@@ -1,14 +1,16 @@
 # This dockerfile needs to be built from the solution directory.
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG QUICK=true
+ARG CONFIG=Debug
 WORKDIR /App
 COPY ./.editorconfig ./*.sln ./
 COPY ./src ./src/
 COPY ./test ./test/
 RUN dotnet restore
-RUN dotnet format --verify-no-changes
-RUN dotnet build
-RUN dotnet test
-RUN dotnet publish ./src/Api/ -o out
+RUN "$QUICK" || dotnet format --verify-no-changes --no-restore
+RUN dotnet build --no-restore
+RUN "$QUICK" || dotnet test --no-restore
+RUN dotnet publish ./src/Api/ -o out -c "$CONFIG" --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /App
