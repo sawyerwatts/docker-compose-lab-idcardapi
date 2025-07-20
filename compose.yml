@@ -36,6 +36,8 @@ services:
       idcardapi_redis:
         condition: service_started
         restart: true
+    ports: # TODO: rm this? have env var to ctl?
+      - ":8080"
 
   idcardapi_eligdb:
     # https://hub.docker.com/_/postgres/

@@ -52,12 +52,23 @@ sdocker image rm $(sdocker image ls | grep "^id-card-api" | awk -F' ' '{print $1
 
 To debug in Rider on Linux, either you need to run Rider as admin or setup Docker to run as rootless.
 
+TODO: have a dependencies "service" to allow for easy starting of dependencies w/o the image itself?
+
+TODO: have an easy way to access the api from host machine; export port?
+
+TODO: make a `.dockerignore` for .NET build artifacts (go steal Rider's)
+
 TODO: how speed up startup?
+
+TODO: add apikey auth back in
+
+TODO: take a pass at existing READMEs
 
 1. Install rootless docker
 2. If `docker compose up -d` fails during pulling due to `docker-credential-desktop` being missing,
    `vi ~/.docker/config.json` and change `credsStore` to `credStore`
 3. Configure Rider's Docker settings to use the rootless docker socket
-4. Configure Rider's run config for the `src/Api/Dockerfile` to bind the port: `127.0.0.1:8080:8080`
-5. TODO: this container, when ran by Rider, isn't on same network as docker compose, so can't find ports
-6. TODO: now how debug?
+4. Start the service `docker compose up --build idcardapi_api -d`
+4. TODO: this container, when ran by Rider, isn't on same network as docker compose, so can't find ports
+   - how add everything to an external network?
+5. TODO: now how debug?
