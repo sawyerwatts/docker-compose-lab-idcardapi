@@ -14,6 +14,29 @@
 
 services:
 
+  # TODO: healthcheck
+  idcardapi_api:
+    build:
+      context: .
+      dockerfile: ./src/Api/Dockerfile
+    depends_on:
+      idcardapi_eligdb:
+        condition: service_started
+        restart: true
+      idcardapi_plandb:
+        condition: service_healthy
+        restart: true
+      idcardapi_init_plandb:
+        condition: service_completed_successfully
+      idcardapi_azurite:
+        condition: service_started
+        restart: true
+      idcardapi_init_azurite_container_id_card:
+        condition: service_completed_successfully
+      idcardapi_redis:
+        condition: service_started
+        restart: true
+
   idcardapi_eligdb:
     # https://hub.docker.com/_/postgres/
     image: postgres
@@ -123,25 +146,6 @@ services:
     # The docs suggest that it's possible to have redis create snapshots and to make a volume for
     # those snapshots, but it was being weird, and it's redis, so whatev.
     # TODO: healthcheck
-
-  # TODO: healthcheck
-  idcardapi_api:
-    build:
-      context: .
-      dockerfile: ./src/Api/Dockerfile
-    depends_on:
-      idcardapi_eligdb:
-        condition: service_started
-        restart: true
-      idcardapi_plandb:
-        condition: service_healthy
-        restart: true
-      idcardapi_azurite:
-        condition: service_started
-        restart: true
-      idcardapi_redis:
-        condition: service_started
-        restart: true
 
 volumes:
   idcardapi_eligdb_data:
