@@ -58,21 +58,20 @@ TraceGuid.RegisterTo(builder);
 RequestTimeouts.Add(builder);
 RateLimiting.Add(builder);
 
-// ApiKeyAuthentication.Add(builder); // TODO: add this back in
+ApiKeyAuthentication.Add(builder);
 
-// TODO: add this back in
 // Set the fallback/default authorization policy to requiring authenticated
 // users. Add [AllowAnonymous] or [Authorize(PolicyName="MyPolicy")] to
 // loosen/harden the authorization.
 // Don't forget policies can require claims, optionally with specific values.
-// builder.Services.AddAuthorization(options =>
-// {
-//     options.FallbackPolicy = new AuthorizationPolicyBuilder()
-//         .RequireAuthenticatedUser()
-//         .RequireAssertion(context =>
-//             !string.IsNullOrWhiteSpace(context.User.Identity?.Name))
-//         .Build();
-// });
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .RequireAssertion(context =>
+            !string.IsNullOrWhiteSpace(context.User.Identity?.Name))
+        .Build();
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -92,7 +91,7 @@ builder.Services.AddSwaggerGen(options =>
 
     TraceGuid.SetupSwaggerGen(options);
 
-    // ApiKeyAuthentication.SetupSwaggerGen(options); // TODO: add this back in
+    ApiKeyAuthentication.SetupSwaggerGen(options);
 });
 
 
@@ -119,7 +118,7 @@ try
 
     app.UseRequestTimeouts();
 
-    // app.UseAuthorization(); // TODO: add this back in
+    app.UseAuthorization();
     app.Use(async (context, next) =>
     {
         string name = context.User.Identity?.Name ?? "`unknown`";

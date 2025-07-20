@@ -6,7 +6,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG QUICK=true
 ARG CONFIG=Debug
 WORKDIR /App
-RUN apt-get -y update; apt-get -y install curl
 
 COPY ./.editorconfig ./*.sln ./
 COPY ./src ./src/
