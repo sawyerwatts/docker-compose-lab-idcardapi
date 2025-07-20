@@ -74,6 +74,7 @@ To debug in Rider on Linux, either you need to run Rider as admin or setup Docke
 
 ### TODOs
 
+- rider recreates all dependencies upon debug! this might get hairy when debugging multiple apps
 - is there a way to configure the port rider exports the api to? and to export when running w/o
   debugging?
 - try out making a dependency service to start normally
