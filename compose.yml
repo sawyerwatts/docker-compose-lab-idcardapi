@@ -15,6 +15,7 @@
 services:
 
   # TODO: healthcheck
+  #   https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-9.0#docker-healthcheck
   idcardapi_api:
     build:
       context: .
