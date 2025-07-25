@@ -81,13 +81,7 @@ To debug in Rider on Linux, either you need to run Rider as admin or setup Docke
 
 ### TODOs
 
-- is there a way to configure the port rider exports the api to? and to export when running w/o
-  debugging?
-- try out making a dependency service to start normally
-- how speed up startup, and/or to autobuild the code on changes?
-    - [have a dotnet run watch branch in the dockerfile?](https://learn.microsoft.com/en-us/aspnet/core/tutorials/dotnet-watch?view=aspnetcore-9.0#run-net-cli-commands-using-dotnet-watch)
-    - [compose watch](https://docs.docker.com/compose/how-tos/file-watch/#compose-watch-versus-bind-mounts)
-    - make a `.dockerignore` for .NET build artifacts (go steal Rider's)
 - take a pass at existing READMEs
     - put env var overrides into `launchSettings.json` so can code/debug normally, or when need to
       profile from startup
+- at the very end of the overall lab, see how well VS and VS Code jive with this pattern

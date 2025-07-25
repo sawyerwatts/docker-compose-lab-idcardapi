@@ -21,6 +21,13 @@ services:
       context: .
       dockerfile: ./src/Api/Dockerfile
     depends_on:
+      idcardapi_dependencies:
+        condition: service_completed_successfully
+
+  idcardapi_dependencies:
+    image: postgres
+    entrypoint: "echo 'dependencies initialized!'"
+    depends_on:
       idcardapi_eligdb:
         condition: service_started
         restart: true
