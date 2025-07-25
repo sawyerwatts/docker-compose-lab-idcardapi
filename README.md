@@ -79,9 +79,7 @@ To debug in Rider on Linux, either you need to run Rider as admin or setup Docke
       make a service that contains the dependencies for the API, start that service normally, and
       then have Rider start the API itself
 
-### TODOs
+## TODO:
 
-- take a pass at existing READMEs
-    - put env var overrides into `launchSettings.json` so can code/debug normally, or when need to
-      profile from startup
-- at the very end of the overall lab, see how well VS and VS Code jive with this pattern
+- see if devcontainers play better with .NET secrets and `launchSettings.json` and stuff
+  - [devcontainers and docker compose](https://containers.dev/guide/dockerfile)

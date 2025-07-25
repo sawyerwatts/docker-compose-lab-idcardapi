@@ -21,11 +21,14 @@ services:
       context: .
       dockerfile: ./src/Api/Dockerfile
     depends_on:
-      idcardapi_dependencies:
+      idcardapi_start_dependencies:
         condition: service_completed_successfully
 
-  idcardapi_dependencies:
-    image: postgres
+  # This service makes it easy to start the dependencies of the API without starting the API itself.
+  # A similar effect could be achieved with two compose files (one with the dependencies and one
+  # with the API itself), but I dislike two compose files more than the dependency service.
+  idcardapi_start_dependencies:
+    image: postgres # NOTE: This is an arbitrary image that's already used by the compose.
     entrypoint: "echo 'dependencies initialized!'"
     depends_on:
       idcardapi_eligdb:
