@@ -64,8 +64,15 @@ To debug in Rider on Linux, either you need to run Rider as admin or setup Docke
 2. If `docker compose up -d` fails during pulling due to `docker-credential-desktop` being missing,
    `vi ~/.docker/config.json` and change `credsStore` to `credStore`
 3. Configure Rider's Docker settings to use the rootless docker socket
-4. If Rider doesn't have a run config for the API's compose service, create that
-5. Run the API's compose service in Debug mode
+4. If Rider doesn't have a run config for the API's compose service, create that.
+5. Make sure the run config is configured appropriately
+   1. `docker compose up` should `Attach to: None`. This will cause Rider to debug the launched API
+   2. `docker compose up` should `Start: Selected services`. Normally, Rider will start/restart all
+   dependencies. However, Rider doesn't respect `compose.override.yml`, so DB access tools like
+   DataGrips won't be able to access the DBs (but this may not be the end of the world). This may
+   also cause weirdness when debugging multiple apps, so managing the dependencies outside of Rider
+   seems superficially superior.
+6. Run the API's compose service in Debug mode
     - WARNING: Rider doesn't apply `compose.override.yml`!! It will at least make sure the API's
       port is exposed, but the other services won't be available on the host machine, and since
       Rider runs on the host, the DBs won't be accessible. As such, it can be helpful to here to
@@ -74,7 +81,6 @@ To debug in Rider on Linux, either you need to run Rider as admin or setup Docke
 
 ### TODOs
 
-- rider recreates all dependencies upon debug! this might get hairy when debugging multiple apps
 - is there a way to configure the port rider exports the api to? and to export when running w/o
   debugging?
 - try out making a dependency service to start normally
