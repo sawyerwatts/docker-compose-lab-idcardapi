@@ -82,4 +82,6 @@ To debug in Rider on Linux, either you need to run Rider as admin or setup Docke
 ## TODO:
 
 - see if devcontainers play better with .NET secrets and `launchSettings.json` and stuff
+  - [devcontainers](https://containers.dev/supporting.html)
   - [devcontainers and docker compose](https://containers.dev/guide/dockerfile)
+  - [rider and dev container](https://www.jetbrains.com/help/rider/Start-Dev-Container-inside-IDE.html#dev_container_context_menu)
