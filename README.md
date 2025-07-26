@@ -3,15 +3,22 @@
 This repository is a helper to [docker-compose-lab](https://github.com/sawyerwatts/docker-compose-lab). See that repo
 for more details, but the TLDR is that this repository contains a containerized .NET API.
 
-For all the commands in this file, the following alias exists (because Docker on Linux):
+## Getting Started
 
-```shell
-# Normally:
-sudo systemctl start docker
+1. Install and start Docker
 
-# If rootless:
-systemctl --user start docker
-```
+    ```shell
+    # Normally:
+    sudo systemctl start docker
+
+    # If rootless:
+    systemctl --user start docker
+    ```
+
+1. Install .NET 8
+1. Start the API's dependencies with `docker compose up idcardapi_start_dependencies -d`
+1. Run this code using your IDE of choice or `dotnet run`
+1. Run the tests using your IDE of choice or `dotnet test`
 
 ## Building the docker image
 
@@ -35,8 +42,6 @@ appears to not like parent directory traversals):
 docker build -t id-card-api:latest -f ./src/Api/Dockerfile .
 ```
 
-*NOTE*: A lot of these all-in-one commands can be made simpler with `docker compose SVC -q`
-
 Here's an all-in-one command to create the image and run it (attached).
 
 ```shell
@@ -52,13 +57,16 @@ docker image rm $(docker image ls | grep "^id-card-api" | awk -F' ' '{print $1 "
 
 Start the service `docker compose up --build idcardapi_api -d`
 
-## Debugging
+## Debugging within Docker
 
 ### Rootless
 
 [Great Rider article](https://blog.jetbrains.com/dotnet/2023/08/16/debugging-docker-and-docker-compose-solutions-with-jetbrains-rider/)
 
 To debug in Rider on Linux, either you need to run Rider as admin or setup Docker to run as rootless.
+
+WARNING: this doesn't have access to .NET user secrets and it won't read from `launchSettings.json` and it won't load
+`compose.override.yml`, so it's kind of a moot point, but here are the instructions anyways.
 
 1. Install rootless docker
 2. If `docker compose up -d` fails during pulling due to `docker-credential-desktop` being missing,
@@ -78,10 +86,3 @@ To debug in Rider on Linux, either you need to run Rider as admin or setup Docke
       Rider runs on the host, the DBs won't be accessible. As such, it can be helpful to here to
       make a service that contains the dependencies for the API, start that service normally, and
       then have Rider start the API itself
-
-## TODO:
-
-- see if devcontainers play better with .NET secrets and `launchSettings.json` and stuff
-  - [devcontainers](https://containers.dev/supporting.html)
-  - [devcontainers and docker compose](https://containers.dev/guide/dockerfile)
-  - [rider and dev container](https://www.jetbrains.com/help/rider/Start-Dev-Container-inside-IDE.html#dev_container_context_menu)

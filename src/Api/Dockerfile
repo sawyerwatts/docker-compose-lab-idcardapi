@@ -10,6 +10,7 @@ WORKDIR /App
 COPY ./.editorconfig ./*.sln ./
 COPY ./src ./src/
 COPY ./test ./test/
+RUN cp ./src/Api/appsettings.Docker.json ./src/Api/appsettings.Development.json
 RUN dotnet restore
 RUN "$QUICK" || dotnet format --verify-no-changes --no-restore
 RUN dotnet build --no-restore
