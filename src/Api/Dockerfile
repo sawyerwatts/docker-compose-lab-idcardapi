@@ -18,6 +18,8 @@ RUN "$QUICK" || dotnet test --no-restore
 RUN dotnet publish ./src/Api/ -o out -c "$CONFIG" --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
+RUN apt-get update -y || exit 1
+RUN apt-get install curl -y || exit 1
 WORKDIR /App
 COPY --from=build /App/out .
 

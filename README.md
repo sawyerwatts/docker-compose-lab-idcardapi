@@ -57,6 +57,18 @@ docker image rm $(docker image ls | grep "^id-card-api" | awk -F' ' '{print $1 "
 
 Start the service `docker compose up --build idcardapi_api -d`
 
+Don't forget you can easily run and attach to an image with
+
+```shell
+docker run -it mcr.microsoft.com/dotnet/aspnet:8.0 /bin/bash
+```
+
+If the image has an entrypoint, this works too:
+
+```shell
+docker run -it --entrypoint /bin/bash docker-compose-lab-idcardapi-idcardapi_api
+```
+
 ## Debugging within Docker
 
 ### Rootless
